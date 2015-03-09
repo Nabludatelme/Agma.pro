@@ -106,8 +106,37 @@
 		resize();
 		scroll();
 	}
+	
+	
+	 $(document).click( function(event){
+      if( $(event.target).closest(".order_form").length || $(event.target).closest(".button_right").length || $(event.target).closest(".sweet-alert").length) 
+        return;
+      $(".order_form").css("display","none");
+		 $(".button_right").fadeIn();
+		 
+      event.stopPropagation();
+    });
 
-	$( document ).ready( function() {
+	$(document).ready( function() {
+		
+		
+		
+		$(".button_right").click(function(){
+			$(this).css("display","none");
+			$(".order_form").fadeIn();
+		});
+		
+		$("input").focus(function(){
+	$(this).parent().find(".wpcf7-not-valid-tip").remove();
+});
+		
+		  $("a[href*=#]").click(function(){
+      		var selected = $(this).attr('href');	
+      		$.scrollTo(selected, 500);		
+      		return false;
+   		 });	
+		
+		
 		$body          = $( document.body );
 		$window        = $( window );
 		$sidebar       = $( '#sidebar' ).first();
@@ -129,3 +158,41 @@
 	} );
 
 } )( jQuery );
+
+var zvezd = 4;
+
+$(".form_exit").click(function(){
+	$(".site_hidden").css("display","none");
+	$(".result_left").text("");
+	$(".site_show").fadeIn();
+	zvezd = "";
+});
+
+$(".form_4").click(function(){
+	$(".site_hidden").fadeIn();
+	$(".result_left").text("");
+	$(".site_show").css("display","none");
+	zvezd = "4";
+});
+
+$(".form_5").click(function(){
+	$(".site_hidden").fadeIn();
+	$(".site_show").css("display","none");
+	zvezd = "5";
+});
+
+$(".slider_button_left").click(function(){
+	$("#slider").slider("value", 0);
+	$(".slider_button").removeClass("active");
+	$(".slider_button_left").addClass("active");
+	
+});
+
+$(".slider_button_right").click(function(){
+	$("#slider").slider("value", 1);
+	$(".slider_button").removeClass("active");
+	$(".slider_button_right").addClass("active");
+});
+
+
+

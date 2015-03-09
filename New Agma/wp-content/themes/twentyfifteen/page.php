@@ -10,29 +10,43 @@
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
-
+$default_query = clone $wp_query;
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<?php wp_reset_postdata();  $wp_query = clone $default_query; ?>
 
 		<?php
-		// Start the loop.
-		while ( have_posts() ) : the_post();
+
+			query_posts(
+							$wp_query->query // это массив базового запроса текущей страницы
+			);
+
+	
+		while (  have_posts() ) : the_post();
 
 			// Include the page content template.
 			get_template_part( 'content', 'page' );
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+			
 
 		// End the loop.
 		endwhile;
 		?>
 
-		</main><!-- .site-main -->
-	</div><!-- .content-area -->
+	<div class="row order_page ">
+		<div class="inline_page">
+			<h2>
+					Оформление заказа
+				</h2>
+				<?php echo do_shortcode('[contact-form-7 id="65" title="Форма в футтере"]'); ?>
+		</div>
+	</div>
+			
+		
+	
+
+</article><!-- #post-## -->
+
+	
 
 <?php get_footer(); ?>
